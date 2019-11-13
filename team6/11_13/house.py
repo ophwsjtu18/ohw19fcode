@@ -1,4 +1,8 @@
+import mcpi.minecraft as minecraft
 import mcpi.block as block
+import statute
+import random
+
 class House():
     def __init__(self,data,mc,wall_mt=57,rf_mt=89):
         self.data=data
@@ -33,9 +37,17 @@ class House():
                 for k in range(11):
                     self.mc.setBlock(self.x0+5+j,self.y0+6+i,self.z0+k,rf_mt)
                     self.mc.setBlock(self.x0+5-j,self.y0+6+i,self.z0+k,rf_mt)
-            
     def buildall(self):
         self.buildWall(self.wall_mt)
         self.roof(self.rf_mt)
+        self.statute=Statute(self.mc)
+        self.statute.loadbinvox(str(random.randint(1,4)))
+        self.statute.build()
+
+    def isInsideHouse(self):
+        pos=self.mc.player.getTilePos()
+        if pos.x>=self.x0 and pos.x<=self.x0+11 and pos.z>=self.z0 and pos.z<=self.z0+11:
+            self.mc.postToChat("welcome home")
+            return True
 
 
