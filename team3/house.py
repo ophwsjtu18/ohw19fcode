@@ -105,6 +105,14 @@ class house():
         self.diaoxiang()
     def singasong(self):
     def isinsidehouse(self):
+        posi=mc.player.getTilePos()
+        x0=self.data[0]
+        y0=self.data[1]
+        z0=self.data[2]
+        if (posi.x>x0 and posi.y>y0 and posi.z>z0) and (posi.x<x0+10 and posi.y<y0+10 and posi.z<z0+10):
+            return 1
+        else:
+            return 0
 
 
          
