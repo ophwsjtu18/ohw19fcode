@@ -1,5 +1,7 @@
 import mcpi.minecraft as minecraft
 import mcpi.block as block
+import statute
+import random
 
 class House():
     def __init__(self,data,mc,wall_mt=57,rf_mt=89):
@@ -38,34 +40,14 @@ class House():
     def buildall(self):
         self.buildWall(self.wall_mt)
         self.roof(self.rf_mt)
+        self.statute=Statute(self.mc)
+        self.statute.loadbinvox(str(random.randint(1,4)))
+        self.statute.build()
 
     def isInsideHouse(self):
-        pos=mc.player.getTilePos()
+        pos=self.mc.player.getTilePos()
         if pos.x>=self.x0 and pos.x<=self.x0+11 and pos.z>=self.z0 and pos.z<=self.z0+11:
-            mc.postToChat("welcome home")
+            self.mc.postToChat("welcome home")
             return True
 
-    
-        
-mc=minecraft.Minecraft.create()
-#mc.player.setTilePos([0,0,0])
-pos=mc.player.getTilePos()
-pos0=[]
-pos0.append(pos.x)
-pos0.append(pos.y)
-pos0.append(pos.z)
-mh1=House([pos.x,pos.y,pos.z],mc)
-mh1.buildall()
-mh2=House([pos.x+20,pos.y,pos.z],mc,block.GOLD_BLOCK.id,block.GLASS.id)
-mh2.buildall()
-mh3=House([pos.x+40,pos.y,pos.z],mc,block.IRON_BLOCK.id,block.WOOD.id)
-mh3.buildall()
 
-while True:
-    mh1.isInsideHouse()
-    mc.postToChat("welcome")
-    mh2.isInsideHouse()
-    mc.postToChat("welcome")
-    mh3.isInsideHouse()
-    mc.postToChat("welcome")
-    
