@@ -1,0 +1,99 @@
+#mc造房子和雕塑
+import donuttest
+import mcpi.minecraft as minecraft
+import mcpi.block as block
+mc = minecraft.Minecraft.create()
+mc.player.setTilePos([150,60,350])#调整初始坐标
+pos = mc.player.getTilePos()
+class house:
+    #data=(pos.x,pos.y,pos.z)
+    
+    def __init__(self,data):
+        self.data=data
+    def roof(self):
+        x0=self.data[0]
+        y0=self.data[1]
+        z0=self.data[2]
+        for x in range(11):
+            for z in range(11):
+                mc.setBlock(x0-10+x,y0+4,z0-5+z,block.DIAMOND_BLOCK.id)
+
+    def block(self):
+        x0=self.data[0]
+        y0=self.data[1]
+        z0=self.data[2]
+        for x in range(11):
+            for z in range(11):
+                mc.setBlock(x0-10+x,y0,z0-5+z,block.DIAMOND_BLOCK.id)
+
+    def buildwall(self):
+        x0=self.data[0]
+        y0=self.data[1]
+        z0=self.data[2]
+        for y in range(4):
+            for x in range(11):
+                mc.setBlock(x0-10+x,y+y0,z0-5,block.GLASS.id)
+                mc.setBlock(x0-10+x,y+y0,z0+5,block.GLASS.id)
+            for z in range(10):
+                mc.setBlock(x0,y+y0,z+z0-5,block.GLASS.id)
+                mc.setBlock(x0-10,y+y0,z+z0-5,block.GLASS.id)
+                
+            '''elif pat[x][z]=="2":
+                mc.setBlock(x0-10+x,4,z+z0-5,block.DIAMOND_BLOCK.id)
+
+            else:
+
+                mc.setBlock(x0-10+x,4,z+z0-5,block.GOLD_BLOCK.id)'''
+
+    def buildall(self):
+        self.roof()
+        self.buildwall()
+        self.block()
+
+
+data=(pos.x,pos.y,pos.z)
+P=house(data)
+house.buildall(P)
+
+data1=(pos.x+30,pos.y,pos.z+30)
+P1=house(data1)
+house.buildall(P1)
+
+data2=(pos.x+60,pos.y,pos.z+60)
+P2=house(data2)
+house.buildall(P2)
+
+
+def stt():
+    import binvox_rw
+    from mcpi.minecraft import Minecraft
+    import mcpi.block as block
+
+    mc=Minecraft.create()
+    pos=mc.player.getTilePos()
+
+    #调整导入模型
+    with open('donut.binvox', 'rb') as f:
+        model = binvox_rw.read_as_3d_array(f)
+    #print(model.dims)
+    #print(model.translate)
+    #print(model.data)
+
+    for y in range(model.dims[1]):
+        #print("layer y=",y)
+        layer_data=model.data[y]
+        stringlayer=""
+        for x in range(model.dims[0]):
+            stringlayer=stringlayer+"\n"
+            for z in range(model.dims[2]):
+                if model.data[x][y][z] == True:
+                    stringlayer=stringlayer+'1'
+                    mc.setBlock(pos.x+x,pos.y+y,pos.z+z,block.STONE.id)
+                else:
+                    stringlayer=stringlayer+'0'
+                    mc.setBlock(pos.x+x,pos.y+y,pos.z+z,block.AIR.id)
+        #print(stringlayer)
+
+stt
+
+    
