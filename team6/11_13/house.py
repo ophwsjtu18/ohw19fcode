@@ -1,7 +1,9 @@
 import mcpi.minecraft as minecraft
 import mcpi.block as block
-import statute
+from statute import *
 import random
+
+
 
 class House():
     def __init__(self,data,mc,wall_mt=57,rf_mt=89):
@@ -40,9 +42,9 @@ class House():
     def buildall(self):
         self.buildWall(self.wall_mt)
         self.roof(self.rf_mt)
+        pos=PP(self.x0,self.y0,self.z0-5)
         self.statute=Statute(self.mc)
-        self.statute.loadbinvox(str(random.randint(1,4)))
-        self.statute.build()
+        self.statute.build(str(random.randint(1,3)),pos)
 
     def isInsideHouse(self):
         pos=self.mc.player.getTilePos()

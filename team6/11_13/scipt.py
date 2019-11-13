@@ -1,6 +1,7 @@
 import mcpi.minecraft as minecraft
 import mcpi.block as block
 from house import House
+from musicplayer import *
 
 mc=minecraft.Minecraft.create()
 #mc.player.setTilePos([0,0,0])
@@ -16,11 +17,15 @@ mh2.buildall()
 mh3=House([pos.x+40,pos.y,pos.z],mc,block.IRON_BLOCK.id,block.WOOD.id)
 mh3.buildall()
 
+player=arduino_run()
 while (True):
     if(mh1.isInsideHouse()):
-        print(1)
+        player.refresh("1")
+        player.run()
     elif (mh2.isInsideHouse()):
-        print(2)
+        player.refresh("3")
+        player.run()
     elif (mh3.isInsideHouse()):
-        print(3)
+        player.refresh("3")
+        player.run()
 
