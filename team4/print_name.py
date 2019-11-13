@@ -1,3 +1,4 @@
+#! /usr/bin/python3
 file = open("README.md", "r")
 string = file.read()
 names = string.split(" ")
