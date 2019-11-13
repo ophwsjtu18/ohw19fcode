@@ -4,3 +4,4 @@ names = string.split(" ")
 for name in names:
     print(name)
 
+file.close()
