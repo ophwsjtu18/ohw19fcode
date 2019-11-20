@@ -3,6 +3,7 @@ import mcpi.minecraft as minecraft
 import serial
 import serial.tools.list_ports
 import time
+import numpy as np
 
 with open('chair.binvox', 'rb') as f:
     model = binvox_rw.read_as_3d_array(f)
@@ -30,7 +31,7 @@ position4[1]=list(pos)[1]+20
 class House():
     def __init__(self,data):
         self.data=data
-        
+
     def roof(self):
         x0=self.data[0]
         y0=self.data[1]
@@ -38,7 +39,7 @@ class House():
         for x in range(11):
             for z in range(11):
                 mc.setBlock(x0+x,y0+8,z+z0,57)
-                    
+
     def wall(self):
         x0=self.data[0]
         y0=self.data[1]
@@ -51,7 +52,7 @@ class House():
             for x in range(10):
                 mc.setBlock(x0+x+1,y+y0,z0,41)
                 mc.setBlock(x0+x+1,y+y0,z0+10,41)
-                    
+
     def door(self):
         x0=self.data[0]
         y0=self.data[1]
@@ -67,10 +68,9 @@ class House():
         for y in range(2):
             mc.setBlock(x0+7,y+y0+4,z0,20)
             mc.setBlock(x0+8,y+y0+4,z0,20)
+    
     def status(self):
-        x0=self.data[0]
-        y0=self.data[1]
-        z0=self.data[2]
+        x0, y0, z0 = self.data
         for i in range(len(model.data)):
             for j in range(len(model.data[i])):
                 for k in range(len(model.data[i][j])):
@@ -78,18 +78,18 @@ class House():
                         mc.setBlock(x0+k,y0+j,z0+i,41)
                     else:
                         mc.setBlock(x0+k,y0+j,z0+i,0)
-    
+
     def return_position(self):
         list_position = []
         for i in range(3):
             list_position.append(self.data[i])
         return list_position
-        
 
 
 
 
-                    
+
+
 
 mh=House(position)
 mh.wall()
@@ -146,7 +146,7 @@ while (1):
             if list_position[2] >= list_position1[2] and list_position[2] <= list_position1[2]+width:
                 return_for_arduino = 1
                 print(return_for_arduino)
-    
+
     if list_position[0] >= list_position2[0] and list_position[0] <= list_position2[0]+length:
         if list_position[1] >= list_position1[1] and list_position[1] <= list_position2[1]+height:
             if list_position[2] >= list_position2[2] and list_position[2]<= list_position2[0]+width:
@@ -158,7 +158,7 @@ while (1):
                 return_for_arduino = 3
                 print(return_for_arduino)
 
-    
+
 
     return_for_arduino_char = ''
     return_for_arduino_char = str(return_for_arduino)
