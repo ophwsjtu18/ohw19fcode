@@ -1,11 +1,15 @@
 import binvox_rw
+import mcpi.minecraft as minecraft
+import serial
+import serial.tools.list_ports
+import time
 
 with open('chair.binvox', 'rb') as f:
     model = binvox_rw.read_as_3d_array(f)
 
-import mcpi.minecraft as minecraft
 mc = minecraft.Minecraft.create()
 pos = mc.player.getTilePos()
+
 position=list(pos)
 position1=list(range(3))
 position2=list(range(3))
@@ -26,6 +30,7 @@ position4[1]=list(pos)[1]+20
 class House():
     def __init__(self,data):
         self.data=data
+        
     def roof(self):
         x0=self.data[0]
         y0=self.data[1]
@@ -73,6 +78,14 @@ class House():
                         mc.setBlock(x0+k,y0+j,z0+i,41)
                     else:
                         mc.setBlock(x0+k,y0+j,z0+i,0)
+    
+    def return_position(self):
+        list_position = []
+        for i in range(3):
+            list_position.append(self.data[i])
+        return list_position
+        
+
 
 
 
@@ -98,3 +111,56 @@ height =8
 width = 10
 mh3=House(position4)
 mh3.status()
+
+list_position1 = []
+list_position2 = []
+list_position3 = []
+
+list_position1 = mh1.return_position()
+list_position2 = mh2.return_position()
+list_position3 = mh3.return_position()
+
+mc_now = minecraft.Minecraft.create()
+
+
+ports = list(serial.tools.list_ports.comports())
+print(ports)
+for o in ports:
+    print (p[1])
+    if "SERIAL" in p[1]:
+        ser = serial.Serial(port = p[0])
+    else:
+        print("No Arduino Device was found connected to the computer")
+time.sleep(2)
+
+while (1):
+    pos_now = mc_now.player.getTilePos()
+    list_position = []
+    list_position.append(pos_now.x)
+    list_position.append(pos_now.y)
+    list_position.append(pos_now.z)
+    return_for_arduino = 0
+
+    if list_position[0] >= list_position1[0] and list_position[0] <= list_position1[0]+length:
+        if list_position[1] >= list_position1[1] and list_position[1] <= list_position1[1]+height:
+            if list_position[2] >= list_position1[2] and list_position[2] <= list_position1[2]+width:
+                return_for_arduino = 1
+                print(return_for_arduino)
+    
+    if list_position[0] >= list_position2[0] and list_position[0] <= list_position2[0]+length:
+        if list_position[1] >= list_position1[1] and list_position[1] <= list_position2[1]+height:
+            if list_position[2] >= list_position2[2] and list_position[2]<= list_position2[0]+width:
+                return_for_arduino = 2
+                print(return_for_arduino)
+    if list_position[0] >= list_position3[0] and list_position[0] <= list_position3[0]+length:
+        if list_position[1] >= list_position3[1] and list_position[1] <= list_position3[1]+height:
+            if list_position[2] >= list_position3[2] and list_position[2] <= list_position3[2]+width:
+                return_for_arduino = 3
+                print(return_for_arduino)
+
+    
+
+    return_for_arduino_char = ''
+    return_for_arduino_char = str(return_for_arduino)
+    ser.write(return_for_arduino_char.encode())
+    time.sleep(1)
