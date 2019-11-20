@@ -133,29 +133,30 @@ mh2.build()
 ports = list(list_ports.comports())
 # print (ports)
 
-"""
+
 for p in ports:
     print (p[1])
     # serial port's name depends on its actual name 
     if "SERIAL" in p[1]:
         ser=serial.Serial(port=p[0])
     else:
-        print ("No Arduino Device was found connected to the computer")"""
+        print ("No Arduino Device was found connected to the computer")
 
 while True:
+    time.sleep(0.5) 
     if mh0.isinsidehouse():
         for a in []:
             ser.write(0)
             time.sleep(3)
-            print("play song1")
     if mh1.isinsidehouse():
         for a in []:
             ser.write(1)
             time.sleep(3)
-            print("play song2")            
     if mh2.isinsidehouse():
         for a in []:
             ser.write(2)
             time.sleep(3)
-            print("play song3")
+
+    else:
+        stayed_time=0
 
