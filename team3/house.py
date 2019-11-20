@@ -74,11 +74,11 @@ class house():
             for z in range(11):
                mc.setBlock(x0+x,y0+11,z0+z,block.GLOWSTONE_BLOCK.id)
 
-    def diaoxiang(self,load):
+    def diaoxiang(self):
         x0=self.data[0]
         y0=self.data[1]
         z0=self.data[2]
-        with open(load, 'rb') as f:
+        with open(self.load, 'rb') as f:
             model = binvox_rw.read_as_3d_array(f)
 #print(model.dims)
 #print(model.scale)
@@ -138,7 +138,7 @@ for p in ports:
     print (p[1])
     # serial port's name depends on its actual name 
     if "SERIAL" in p[1]:
-        self.ser=serial.Serial(port=p[0])
+        ser=serial.Serial(port=p[0])
     else:
         print ("No Arduino Device was found connected to the computer")"""
 
