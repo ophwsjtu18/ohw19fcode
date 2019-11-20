@@ -1,6 +1,8 @@
 import binvox_rw
 from mcpi.minecraft import Minecraft
 import mcpi.block as block
+import time
+import serial
 
 mc=Minecraft.create()
 pos=mc.player.getTilePos()
@@ -103,7 +105,7 @@ class house():
         self.door()
         self.fire()
         self.diaoxiang()
-    def singasong(self):
+        
     def isinsidehouse(self):
         posi=mc.player.getTilePos()
         x0=self.data[0]
@@ -125,3 +127,18 @@ mh2=house (place2,'D:\\python code\\binvox-rw-py\\ufo.binvox')
 mh0.build()
 mh1.build()
 mh2.build()
+
+while True:
+    if mh0.isinsidehouse():
+        for a in []:
+            ser.write(0)
+            time.sleep(3)
+    if mh1.isinsidehouse():
+        for a in []:
+            ser.write(1)
+            time.sleep(3)
+    if mh2.isinsidehouse():
+        for a in []:
+            ser.write(2)
+            time.sleep(3)
+
