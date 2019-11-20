@@ -148,10 +148,11 @@ while (1):
                 print(return_for_arduino)
     
     if list_position[0] >= list_position2[0] and list_position[0] <= list_position2[0]+length:
-        if list_position[1] >= list_position1[1] and list_position[1] <= list_position2[1]+height:
+        if list_position[1] >= list_position2[1] and list_position[1] <= list_position2[1]+height:
             if list_position[2] >= list_position2[2] and list_position[2]<= list_position2[0]+width:
                 return_for_arduino = 2
                 print(return_for_arduino)
+
     if list_position[0] >= list_position3[0] and list_position[0] <= list_position3[0]+length:
         if list_position[1] >= list_position3[1] and list_position[1] <= list_position3[1]+height:
             if list_position[2] >= list_position3[2] and list_position[2] <= list_position3[2]+width:
