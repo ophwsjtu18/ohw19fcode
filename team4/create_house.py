@@ -116,8 +116,8 @@ list_position1 = []
 list_position2 = []
 list_position3 = []
 
-list_position1 = mh1.return_position()
-list_position2 = mh2.return_position()
+list_position1 = mh.return_position()
+list_position2 = mh1.return_position()
 list_position3 = mh3.return_position()
 
 mc_now = minecraft.Minecraft.create()
