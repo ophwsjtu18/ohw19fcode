@@ -147,12 +147,15 @@ while True:
         for a in []:
             ser.write(0)
             time.sleep(3)
+            print("play song1")
     if mh1.isinsidehouse():
         for a in []:
             ser.write(1)
             time.sleep(3)
+            print("play song2")            
     if mh2.isinsidehouse():
         for a in []:
             ser.write(2)
             time.sleep(3)
+            print("play song3")
 
