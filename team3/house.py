@@ -145,14 +145,17 @@ for p in ports:
 while True:
     time.sleep(0.5) 
     if mh0.isinsidehouse():
+        # print("song1")
         for a in []:
             ser.write(0)
             time.sleep(3)
     if mh1.isinsidehouse():
+        # print("song2")
         for a in []:
             ser.write(1)
             time.sleep(3)
     if mh2.isinsidehouse():
+        # print("song3")
         for a in []:
             ser.write(2)
             time.sleep(3)
