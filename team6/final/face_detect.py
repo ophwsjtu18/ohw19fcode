@@ -51,7 +51,7 @@ while(True):
             ser.write(str(int(angle)).encode())
             time.sleep(0.5)
             cv2.imshow('img',img)
-        if((lastpos-currentpos)<5):
+        if((lastpos-currentpos)<5 and abs(x_d)<15):
             shoot+=1
         if(shoot>10):
             ser.write("s".encode())
