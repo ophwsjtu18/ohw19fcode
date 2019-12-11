@@ -9,6 +9,19 @@ lenth=1024
 width=678
 cap = cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
+
+ports = list(serial.tools.list_ports.comports())
+print (ports)
+
+for p in ports:
+    print (p[1])
+    if "Uno" in p[1]:
+        ser=serial.Serial(port=p[0])
+    else :
+        print ("No Arduino Device was found connected to the computer")
+
+time.sleep(2)
+
 def drawface(x,y,w,h,img):
     fc=x+w/2
     mid=lenth/2
@@ -39,15 +52,22 @@ def drawface(x,y,w,h,img):
     cv2.rectangle(img,(x,y+h),(x+w,width),(a,b,0),5)
     cv2.rectangle(img,(x+w,y+h),(lenth,width),(a,b,0),5)
 
-ports = list(serial.tools.list_ports.comports())
-print (ports)
+def run():
+    action = "empty"
+    while action != "o":
+#        print ('q for quit,others for command')
+        print('o for start, others for test')
+        action = input("> ")
+        ser.write(action.encode())
+        time.sleep(1)
+        ser.write("y".encode())
+        time.sleep(1)
+        ser.write("g".encode())
+        time.sleep(1)
 
-for p in ports:
-    print (p[1])
-    if "Uno" in p[1]:
-        ser=serial.Serial(port=p[0])
-    else :
-        print ("No Arduino Device was found connected to the computer")
+   
+
+run()
 
 time.sleep(2)
 
@@ -65,3 +85,10 @@ while(True):
 
 cap.release()
 cv2.destroyAllWindows()
+
+
+
+
+
+
+
