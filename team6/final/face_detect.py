@@ -5,6 +5,10 @@ import serial.tools.list_ports
 import time
 import random
 import math
+import mcpi.minecraft as minecraft
+import mcpi.block as block
+from house import House
+
 
 
 #Arduino Serials
@@ -16,7 +20,7 @@ for p in ports:
 	    ser=serial.Serial(port=p[0])
     else :
 	    print ("No Arduino Device was found connected to the computer")
-time.sleep(2)
+#time.sleep(2)
 #face detection	    
 cap =cv2.VideoCapture(0)
 face_cascade = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
@@ -24,12 +28,29 @@ eye_cascade = cv2.CascadeClassifier('./haarcascade_eye.xml')
 
 lastpos=0
 currentpos=0
+lastdis=0
+currentdis=0
+lastx_d=0
+currentx_d=0
 shoot=0
+#MC
+mc=minecraft.Minecraft.create()
+pos=mc.player.getTilePos()
+pos0=[]
+pos0.append(pos.x)
+pos0.append(pos.y)
+pos0.append(pos.z)
+des=House([pos.x+20,pos.y,pos.z],mc,block.GOLD_BLOCK.id,block.GLASS.id)
+des.buildall()
 
-#distance(x):
-    
-
+ct=0
 while(True):
+    ct+=1
+    #到达目的地了吗
+    if(des.isInsideHouse()):
+        mc.postToChat("You win")
+        break
+    #人脸识别，一方面投石机追踪，一方面控制MC里面人到Destinatioin
     ret,img=cap.read()
     center=[img.shape[0]/2,img.shape[1]/2]
     faces = face_cascade.detectMultiScale(img, 1.3, 5)
@@ -45,19 +66,33 @@ while(True):
             x_d=x+w/2-325
             dis=(-0.88*w+220)
             angle=math.atan(x_d/dis)/3.1415926535897*180
+            currentpos=angle
+            currentdis=dis
+            currentx_d=x_d
+            if(ct==1):
+                lastpos=currentpos
+                lastdis=currentdis
+                lastx_d=currentx_d
+            pos=mc.player.getTilePos()
+            mc.player.setTilePos([pos.x+(currentx_d-lastx_d)/5,pos.y,pos.z+(currentdis-lastdis)/5])
             #print(dis)
             #print(angle)
-            ser.write(str(int(dis)).encode())
-            ser.write(str(int(angle)).encode())
-            time.sleep(0.5)
+            #ser.write
+            print(str(int(dis)).encode())
+            #ser.write
+            print(str(int(angle)).encode())
+            #time.sleep(0.5)
             cv2.imshow('img',img)
-        if((lastpos-currentpos)<5 and abs(x_d)<15):
-            shoot+=1
+            if((lastpos-currentpos)<5 and abs(angle)<15):
+                shoot+=1
         if(shoot>10):
-            ser.write("s".encode())
+            mc.player.setTilePos([0,-1000,0])
+            #ser.write("s".encode())
             time.sleep(2)
             shoot=0
         lastpos=currentpos
+        lastdis=currentdis
+        lastx_d=currentx_d
         if cv2.waitKey(1)& 0xFF==ord('q'):
             break
     

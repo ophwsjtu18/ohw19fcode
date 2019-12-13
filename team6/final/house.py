@@ -42,14 +42,14 @@ class House():
     def buildall(self):
         self.buildWall(self.wall_mt)
         self.roof(self.rf_mt)
-        pos=PP(self.x0,self.y0,self.z0-100)
-        self.statute=Statute(self.mc)
-        self.statute.build(str(random.randint(1,3)),pos)
+        pos=PP(self.x0,self.y0,self.z0-5)
+        #self.statute=Statute(self.mc)
+        #self.statute.build(str(random.randint(1,3)),pos)
 
     def isInsideHouse(self):
         pos=self.mc.player.getTilePos()
         if pos.x>=self.x0 and pos.x<=self.x0+11 and pos.z>=self.z0 and pos.z<=self.z0+11:
-            self.mc.postToChat("welcome home")
+            #self.mc.postToChat("")
             return True
 
 

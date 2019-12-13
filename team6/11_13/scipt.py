@@ -12,20 +12,13 @@ pos0.append(pos.y)
 pos0.append(pos.z)
 mh1=House([pos.x,pos.y,pos.z],mc)
 mh1.buildall()
-mh2=House([pos.x+20,pos.y,pos.z],mc,block.GOLD_BLOCK.id,block.GLASS.id)
-mh2.buildall()
-mh3=House([pos.x+40,pos.y,pos.z],mc,block.IRON_BLOCK.id,block.WOOD.id)
-mh3.buildall()
+#mh2=House([pos.x+20,pos.y,pos.z],mc,block.GOLD_BLOCK.id,block.GLASS.id)
+#mh2.buildall()
+#mh3=House([pos.x+40,pos.y,pos.z],mc,block.IRON_BLOCK.id,block.WOOD.id)
+#mh3.buildall()
 
-player=arduino_run()
 while (True):
     if(mh1.isInsideHouse()):
-        player.refresh("1")
-        player.run()
-    elif (mh2.isInsideHouse()):
-        player.refresh("3")
-        player.run()
-    elif (mh3.isInsideHouse()):
-        player.refresh("3")
-        player.run()
+        mc.postToChat("Your're dead")
+
 
