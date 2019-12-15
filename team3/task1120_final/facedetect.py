@@ -4,6 +4,7 @@ import cv2
 import serial
 import serial.tools.list_ports
 import time
+state=0
 
 lenth=1024
 width=678
@@ -23,6 +24,7 @@ for p in ports:
 time.sleep(2)
 
 def drawface(x,y,w,h,img):
+    global state
     fc=x+w/2
     mid=lenth/2
     limit=50
@@ -30,13 +32,18 @@ def drawface(x,y,w,h,img):
         a=255
         b=0
 #        print('l\n')
-#        ser.write(0)
+        if state!=1:
+            state=1
+            ser.write('1'.encode())
 
     elif fc>mid+limit:
         a=0
         b=255
 #        print('r\n')
 #        ser.write(1)
+        if state!=2:
+            ser.write('2'.encode())
+            state=2
     else:
         a=255
         b=255
