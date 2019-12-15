@@ -4,7 +4,8 @@ import cv2
 import serial
 import serial.tools.list_ports
 import time
-state=0
+
+state=-1
 
 lenth=1024
 width=678
@@ -47,6 +48,9 @@ def drawface(x,y,w,h,img):
     else:
         a=255
         b=255
+        if state!=0:
+            ser.write('0'.encode())
+            state=0
 #        print('toss\n')
 #        ser.write(2)
 
