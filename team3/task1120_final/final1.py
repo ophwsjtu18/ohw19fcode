@@ -127,22 +127,21 @@ def mangonelmode1():
         cv2.rectangle(img,(x,y+h),(x+w,width),(a,b,0),5)
         cv2.rectangle(img,(x+w,y+h),(lenth,width),(a,b,0),5)
 
-    def run():
-        action = "empty"
-        while action != "o":
-    #        print ('q for quit,others for command')
-            print('o for start, others for test')
-            action = input("> ")
-            ser.write(action.encode())
-            time.sleep(1)
-            ser.write("y".encode())
-            time.sleep(1)
-            ser.write("g".encode())
-            time.sleep(1)
-
-       
-
-    run()
+#    def run():
+#        action = "empty"
+#        while action != "q":
+#    #        print ('q for quit,others for command')
+#            action = input("> ")
+#            ser.write(action.encode())
+#            time.sleep(1)
+#            ser.write("y".encode())
+#            time.sleep(1)
+#            ser.write("g".encode())
+#            time.sleep(1)
+#
+#       
+#
+#    run()
 
     time.sleep(2)
 
