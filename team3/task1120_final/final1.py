@@ -1,10 +1,15 @@
 import mcpi.block as block
 from mcpi.minecraft import Minecraft
 import time
+import numpy as np
+import cv2
+import serial
+import serial.tools.list_ports
 
 mc=Minecraft.create()
 pos=mc.player.getTilePos()
 
+state=-1
 
 #房子类
 class house():
@@ -62,14 +67,8 @@ class house():
     
 #暂定一共建三个房子，投石机有两个模式，进入第三个房子时程序结束
 def mangonelmode1():
-    import numpy as np
-    import cv2
+    
 
-    import serial
-    import serial.tools.list_ports
-    import time
-
-    state=-1
 
     lenth=1024
     width=678
