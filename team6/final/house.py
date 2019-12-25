@@ -1,6 +1,6 @@
 import mcpi.minecraft as minecraft
 import mcpi.block as block
-from statute import *
+#from statute import *
 import random
 
 
