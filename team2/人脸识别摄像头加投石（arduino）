@@ -1,0 +1,65 @@
+#include <Servo.h>
+Servo myservo;
+int angle=0; //初始角度
+int temp=0;
+int delangle=90;//以上舵机1的变量
+Servo myservo2;
+Servo myservo3;
+Servo myservo4;
+
+void setup() {
+myservo.attach(8);
+myservo2.attach(5);
+myservo3.attach(10);
+myservo4.attach(11);
+}
+
+void loop() {
+while(Serial)//检测是否有串口接通
+  {
+  if(Serial.available()>0)//判断是否具有输入
+  { delay(500); 
+    angle=Serial.parseInt(); //接收数据
+    if(angle==666)
+    {
+      myservo3.write(60);
+delay(500);
+myservo4.write(0);
+delay(500);
+
+
+myservo2.write(0);
+delay(2000);
+myservo2.write(90);//装弹
+delay(1000);
+
+myservo3.write(0);//蓄力
+delay(2000);
+myservo4.write(90);//发射
+delay(1000);
+myservo3.write(60);//蓄力杆复位
+delay(100);
+myservo4.write(0);//发射杆复位
+delay(5000);}
+
+    else{
+    if(angle!=temp)
+    {
+    delangle=delangle-angle;
+    temp=angle;
+    myservo.write( delangle ); //定义舵机的转动角度
+     //Serial.print(delangle);
+    delay( 1000 );}//延时500毫秒
+   
+  else {
+    
+  //Serial.print(0);
+  delay(500);
+}}
+  
+   }
+   
+
+  
+
+}}
